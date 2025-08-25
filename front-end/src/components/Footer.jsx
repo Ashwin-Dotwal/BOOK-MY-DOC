@@ -1,51 +1,38 @@
-import React from 'react'
-import { assets } from '../assets/assets'
+import React from "react";
+import { assets } from "../assets/assets";
+import { useNavigate } from "react-router-dom";
 
-const Footer = () => {
+const Banner = () => {
+  const navigate = useNavigate();
   return (
-    <div className='md:mx-10'>
-      
-    
-    <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
-      {/*-----Left Section*/}
-      <div>
-           <img className='mb-5 w-40' src={assets.logo} alt="" />
-           <p className='w-full md:w-2/3 text-gray-600 leading-6'>Find trusted doctors, view their specialties, and schedule appointments online in just a few clicks. Whether it's a general check-up or a specialist consultation, get the care you need—fast and hassle-free.</p>
+    <div className="flex bg-purple-900 rounded-lg px-6 sm:px-14 lg:px-12 my-20 md:mx-10">
+      {/*---Left side-----*/}
+      <div className="flex-1 py-8 sm:py-10 md:py-16 lg:py-24 lg:pl-5">
+        <div className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-white">
+          <p>Book Appointment</p>
+          <p className="mt-4">With 100+ Trusted Doctors</p>
+        </div>
+        <button
+          onClick={() => {
+            navigate("/login");
+            scrollTo(0, 0);
+          }}
+          className="bg-white text-sm sm:text-base text-gray-600 px-8 py-3 rounded-full mt-6 hover:scale-105 transition-all"
+        >
+          Create Account
+        </button>
       </div>
 
-         {/*-----Center Section*/}
-         <div>
-          <p className='text-xl font-medium mb-5'>COMPANY</p>
-        <ul className='flex
-         flex-col gap-2 text-gray-600'>
-          <li>Home</li>
-          <li>About us</li>
-          <li>Contact us</li>
-          <li>Privacy policy</li>
-        </ul>
-        
-         </div>
-
-           {/*-----Right Section*/}
-           <div>
-            <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
-             <ul className='flex
-         flex-col gap-2 text-gray-600'>
-              <li>+91 6260476245</li>
-              <li>bookmydoc@gmail.com</li>
-             </ul>
-        
-           </div>
+      {/*---Right side-----*/}
+      <div className="hidden md:block md:w-1/2 lg:w[370px] relative">
+        <img
+          className="w-full absolute bottom-0 right-0 max-w-96"
+          src={assets.appointment_img}
+          alt=""
+        />
+      </div>
     </div>
-    
-    {/*------Copyright Text-----*/}
-    <div>
-      <hr />
-      <p className='py-5 text-sm text-center'>Copyright 2025@ Prescripto All Right Reserved</p>
-    </div>
+  );
+};
 
-    </div>
-  )
-}
-
-export default Footer
+export default Banner;
