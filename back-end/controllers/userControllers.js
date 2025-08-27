@@ -248,13 +248,8 @@ const cancelAppointment = async (req, res) => {
   }
 };
 
-// ---------------------- RAZORPAY PAYMENT ----------------------
 
-// Razorpay instance
-const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+// ---------------------- RAZORPAY PAYMENT ----------------------
 
 // API to create payment order
 const paymentRazorpay = async (req, res) => {
@@ -269,8 +264,14 @@ const paymentRazorpay = async (req, res) => {
       });
     }
 
+    // ✅ Initialize Razorpay here, after dotenv is loaded
+    const razorpayInstance = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+
     const options = {
-      amount: appointmentData.amount * 100,
+      amount: appointmentData.amount * 100, // in paise
       currency: process.env.CURRENCY || "INR",
       receipt: appointmentId,
     };
@@ -288,6 +289,13 @@ const paymentRazorpay = async (req, res) => {
 const verifyRazorpay = async (req, res) => {
   try {
     const { razorpay_order_id } = req.body;
+
+    // ✅ Create instance here too
+    const razorpayInstance = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+
     const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
 
     if (orderInfo.status === "paid") {
@@ -303,6 +311,9 @@ const verifyRazorpay = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+
+
 
 export {
   registerUser,

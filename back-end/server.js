@@ -1,14 +1,15 @@
+// server.js
+import dotenv from "dotenv";
+// ✅ Load env variables right away
+dotenv.config();
+
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import connectDB from "./config/mongodb.js";
 import connectCloudinary from "./config/cloudinary.js";
 import adminRouter from "./routes/adminroutes.js";
 import doctorRouter from "./routes/doctorroutes.js";
 import userRouter from "./routes/userRoutes.js";
-
-// Load environment variables
-dotenv.config();
 
 // Initialize app
 const app = express();
@@ -42,4 +43,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`✅ Server started on port ${port}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || "development"}`);
+  console.log(`🔑 Razorpay Key ID: ${process.env.RAZORPAY_KEY_ID || "NOT FOUND"}`);
 });
